@@ -1,10 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { penguins } from '../data/penguins';
 import Link from 'next/link';
+import { Penguin } from '../types/penguin';
 
-const Home: NextPage = () => {
+interface Props {
+  penguins: Array<Penguin>;
+}
+
+const Home: NextPage<Props> = ({ penguins }) => {
   return (
     <div className="flex flex-col min-h-screen w-full bg-slate-100">
       <Head>
@@ -16,8 +20,12 @@ const Home: NextPage = () => {
       <main className="m-auto grid gap-y-10">
         <h1 className="text-2xl font-bold pt-10 md:pt-0">Select an NFT</h1>
         <div className="grid md:grid-cols-2 gap-10">
-          {penguins.map((penguin, idx) => (
-            <Link href={`/penguins/${penguin.number}`} key={idx}>
+          {penguins?.map((penguin: Penguin, idx: number) => (
+            <Link
+              href="/penguins/[id]"
+              as={`/penguins/${penguin.number}`}
+              key={idx}
+            >
               <div className="p-5 bg-white border rounded-lg drop-shadow-md cursor-pointer">
                 <Image
                   src={penguin.image}
@@ -62,6 +70,16 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
+};
+
+Home.getInitialProps = async function () {
+  const res = await fetch(
+    'https://my-json-server.typicode.com/itsjuanmatus/demo/penguins',
+  );
+  const data = await res.json();
+  return {
+    penguins: data,
+  };
 };
 
 export default Home;

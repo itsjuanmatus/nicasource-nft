@@ -1,12 +1,16 @@
-import React from 'react';
+import { motion } from 'framer-motion';
+import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { penguins, Penguin } from '../../data/penguins';
+import React from 'react';
+import { Penguin } from '../../types/penguin';
+interface Props {
+  penguin: Penguin;
+}
 
-export default ({ penguin }: { penguin: Penguin }) => {
+const Penguin: NextPage<Props> = ({ penguin }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-blacl">
+    <div className="flex flex-col min-h-screen">
       <main className="w-full md:flex">
         <div
           className="hidden min-h-screen md:w-1/2 md:flex flex-col"
@@ -61,23 +65,13 @@ export default ({ penguin }: { penguin: Penguin }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const penguin = penguins.filter((p) => p.number === params?.id);
-  return {
-    props: {
-      penguin: penguin[0],
-    },
-  };
+Penguin.getInitialProps = async function (context) {
+  const { id } = context.query;
+  const res = await fetch(
+    `https://my-json-server.typicode.com/itsjuanmatus/demo/penguins/?number=${id}`,
+  );
+  const penguin = await res.json();
+  return { penguin: penguin[0] };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = penguins.map((penguin) => ({
-    params: {
-      id: penguin.number,
-    },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
+export default Penguin;
