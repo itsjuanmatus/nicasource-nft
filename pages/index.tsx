@@ -36,6 +36,7 @@ const Home: NextPage = () => {
                       width={30}
                       height={29}
                       className="border rounded-md"
+                      priority
                     />
                     <p className="text-xl font-semibold">{penguin.price}</p>
                   </div>

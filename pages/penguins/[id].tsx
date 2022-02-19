@@ -48,6 +48,7 @@ export default ({ penguin }: { penguin: Penguin }) => {
                     width={30}
                     height={29}
                     className="border rounded-md"
+                    priority
                   />
                   <p className="text-xl font-semibold">{penguin.price}</p>
                 </div>
@@ -61,7 +62,7 @@ export default ({ penguin }: { penguin: Penguin }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const penguin = penguins.filter((p) => p.number.toString() === params?.id);
+  const penguin = penguins.filter((p) => p.number === params?.id);
   return {
     props: {
       penguin: penguin[0],
@@ -72,7 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = penguins.map((penguin) => ({
     params: {
-      id: penguin.number.toString(),
+      id: penguin.number,
     },
   }));
   return {
