@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Penguin } from '../types/penguin';
+import { motion } from 'framer-motion';
 
 interface Props {
   penguins: Array<Penguin>;
@@ -10,7 +11,9 @@ interface Props {
 
 const Home: NextPage<Props> = ({ penguins }) => {
   return (
-    <div className="flex flex-col min-h-screen w-full bg-slate-100">
+    <motion.div className="flex flex-col min-h-screen w-full bg-slate-100" exit={{
+      opacity: 0,
+    }}>
       <Head>
         <title>Nicasource NFTs</title>
         <meta name="description" content="Conference for Nicasource" />
@@ -68,7 +71,7 @@ const Home: NextPage<Props> = ({ penguins }) => {
           </a>
         </p>
       </footer>
-    </div>
+    </motion.div>
   );
 };
 
