@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { Penguin } from '../../types/penguin';
+import Head from 'next/head';
 interface Props {
   penguin: Penguin;
 }
@@ -43,6 +44,12 @@ const Penguin: NextPage<Props> = ({ penguin }) => {
       initial="initial"
       animate="animate"
     >
+      <Head>
+        <title>{penguin.name}</title>
+        <meta name="description" content={penguin.description} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <motion.main className="w-full md:flex" variants={stagger}>
         <div
           className="hidden min-h-screen md:w-1/2 md:flex flex-col"
@@ -84,7 +91,7 @@ const Penguin: NextPage<Props> = ({ penguin }) => {
               </Link>
             </motion.div>
 
-            <div className="grid gap-y-5" >
+            <div className="grid gap-y-5">
               <motion.div
                 className="flex gap-x-5 items-center"
                 variants={fadeInUp}
@@ -99,9 +106,13 @@ const Penguin: NextPage<Props> = ({ penguin }) => {
                 className="grid md:flex items-center gap-5"
                 variants={stagger}
               >
-                <motion.button variants={fadeInUp} whileHover={{
-                  scale: 1.05,
-                }}className="flex py-2.5 px-5 border rounded-lg text-white bg-blue-500 hover:bg-blue-700 max-w-max">
+                <motion.button
+                  variants={fadeInUp}
+                  whileHover={{
+                    scale: 1.05,
+                  }}
+                  className="flex py-2.5 px-5 border rounded-lg text-white bg-blue-500 hover:bg-blue-700 max-w-max"
+                >
                   Buy now
                 </motion.button>
                 <motion.div className="flex gap-x-2" variants={fadeInUp}>
