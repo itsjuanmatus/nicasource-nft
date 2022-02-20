@@ -19,6 +19,7 @@ const Home: NextPage<Props> = ({ penguins }) => {
 
       <main className="m-auto grid gap-y-10">
         <h1 className="text-2xl font-bold pt-10 md:pt-0">Select an NFT</h1>
+       
         <div className="grid md:grid-cols-2 gap-10">
           {penguins?.map((penguin: Penguin, idx: number) => (
             <Link
