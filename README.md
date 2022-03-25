@@ -7,4 +7,4 @@ To run the boilerplate:
  3. `yarn` to install dependencies
  4. `yarn dev` to run the project
 
-# Check it out here: https://nicasource-penguin.netlify.app/
+Check it out here: https://nicasource-penguin.netlify.app/
